@@ -1,0 +1,41 @@
+.main {
+	color: white;
+	margin: 40px 0;
+}
+
+.total-page-views {
+	font-size: 26px;
+	color: #da6f6f;
+}
+
+.chart-width {
+	width: 620px;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.margin-h-5 {
+	margin: 0 5px;
+}
+
+.margin-h-20 {
+	margin: 0 20px;
+}
+
+.margin-h-40 {
+	margin: 0 40px;
+}
+
+.margin-v-20 {
+	margin: 20px 0;
+}
+
+.margin-v-30 {
+	margin: 30px 0;
+}
+
+.text-align-center {
+	text-align: center;
+}

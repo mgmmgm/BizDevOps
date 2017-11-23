@@ -9,6 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "assets/img",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -19,7 +20,11 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "styles.css",
+        "./app/modules/BdoLoadingSpinner/bdo.loadingSpinner.component.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

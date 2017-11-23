@@ -1,20 +1,65 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!--<h1>-->
+<!--{{title}}-->
+<!--</h1>-->
+<!--<div>-->
+<!--<input type="text" [(ngModel)]="text.value"/>-->
+<!--<div>-->
+<!--{{text.value}}-->
+<!--</div>-->
+<!--<div>-->
+<!--<input type="text" [(ngModel)]="text.value" #refText="ngModel" name="textName"/>-->
+<!--{{refText.value}} - {{refText.dirty}}-->
+<!--</div>-->
+<!--<div>-->
+<!--<button type="button" [disabled]="text.value === 'abcd'" (click)="writeText()">Click me</button>-->
+<!--</div>-->
 
+<!--<bdo-test [name]="text.value"></bdo-test>-->
+
+<bdo-loading-spinner></bdo-loading-spinner>
+
+<div class="main">
+
+  <div class="text-align-center margin-v-20">
+    <label class="margin-h-5">Metrics:</label>
+    <p-dropdown [options]="googleAnalyticsMetrics" [(ngModel)]="bdoData.googleAnalyticsMetric"></p-dropdown>
+  </div>
+
+  <div class="text-align-center">
+    <div class="inline-block margin-h-20">
+      <label class="margin-h-5">Octane Module:</label>
+      <p-dropdown [options]="ngaModules" [(ngModel)]="bdoData.ngaModuleName" (onChange)="onChangeNgaModule()"></p-dropdown>
+    </div>
+    <div class="inline-block margin-h-20">
+      <label class="margin-h-5">Start Date:</label>
+      <p-calendar [(ngModel)]="bdoData.startDate" dateFormat="dd.mm.yy" showIcon="true"></p-calendar>
+    </div>
+    <div class="inline-block margin-h-40">
+      <label class="margin-h-5">End Date:</label>
+      <p-calendar [(ngModel)]="bdoData.endDate" dateFormat="dd.mm.yy" showIcon="true"></p-calendar>
+    </div>
+    <div class="inline-block margin-h-40">
+      <button pButton type="button" (click)="loadCharts()" label="Update Chart"></button>
+    </div>
+  </div>
+
+  <div class="total-page-views  margin-v-20 text-align-center">
+    <label>Total {{metricLabel}}:</label>
+    <span>{{total}}</span>
+  </div>
+
+  <div class="margin-v-30 text-align-center">
+    <div class="inline-block chart-width">
+      <bdo-pie-chart [data]="dataForChart"></bdo-pie-chart>
+    </div>
+    <div class="inline-block chart-width">
+      <bdo-column-chart [data]="dataForChart"></bdo-column-chart>
+    </div>
+  </div>
+
+  <div class="text-align-center">
+    <div class="inline-block chart-width">
+      <bdo-line-chart [data]="dataForTrendChart"></bdo-line-chart>
+    </div>
+  </div>
+</div>

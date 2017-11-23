@@ -1,0 +1,14 @@
+<div class="test">
+    Test - {{name}}
+
+    <ul>
+        <li *ngFor="let p of posts">
+            {{p}}
+        </li>
+    </ul>
+
+    <button pButton type="button" (click)="getPosts()" label="Click"></button>
+
+
+    <div>{{data}}</div>
+</div>
