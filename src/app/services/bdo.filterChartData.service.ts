@@ -8,15 +8,24 @@ export class FilterChartDataService {
 
 	filterPageViewsData(values:any):any[] {
 		// let pipelineDimensions = values.filter((row:any) => row.dimensions[0].startsWith('ga:pageTitle: ' + moduleName));
-		let total = 0;
+		let totals = {
+			pageViews: 0,
+			users: 0
+		}
 		let chartData = values.map((pd:any) => {
 			let dimension = pd.dimensions[0].replace('ga:pageTitle: ', '');
-			let metric = +pd.Metrics.usage.replace('ga:pageviews: ','');
-			total += metric;
-			let newArray = [dimension, metric];
-			return newArray;
+			let metric = +pd.Metrics['ga:pageviews'];
+			let users = +pd.Metrics['ga:users'];
+			// let metric = +pd.Metrics.usage.replace('ga:pageviews: ','');
+			totals.pageViews += metric;
+			totals.users += users;
+			return {
+					name: dimension,
+					y: metric,
+					custom: users
+				};
 		});
-		return [chartData, total];
+		return [chartData, totals];
 	}
 
 	filterPageViewsTrend(values:any):any[] {
@@ -25,7 +34,8 @@ export class FilterChartDataService {
 		let chartData = values.map((pd:any) => {
 			let dimension = pd.dimensions[0].replace('ga:pageTitle: ', '');
 			let day = pd.dimensions[1].replace('ga:day: ', '');
-			let metric = +pd.Metrics.usage.replace('ga:pageviews: ','');
+			let metric = +pd.Metrics['ga:pageviews'];
+			let users = +pd.Metrics['ga:users'];
 			total += metric;
 			let newArray = [dimension, [day, metric]];
 			return newArray;

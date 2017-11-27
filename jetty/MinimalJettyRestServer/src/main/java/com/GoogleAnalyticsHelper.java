@@ -29,10 +29,10 @@ public class GoogleAnalyticsHelper {
 	private static final String VIEW_ID = "135777719";
 
 
-	public JSONObject getReport(String octaneModuleName, String startDate, String endDate, String metric, String dimensions) {
+	public JSONObject getReport(String octaneModuleName, String startDate, String endDate, String metrics, String dimensions) {
 		try {
 			AnalyticsReporting service = initializeAnalyticsReporting();
-			GetReportsResponse response = getReport(service, octaneModuleName, startDate, endDate, metric, dimensions);
+			GetReportsResponse response = getReport(service, octaneModuleName, startDate, endDate, metrics, dimensions);
 			return convertResponseToJson(response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +54,7 @@ public class GoogleAnalyticsHelper {
 	}
 
 
-	private static GetReportsResponse getReport(AnalyticsReporting service, String octaneModuleName, String startDate, String endDate, String metric, String dimensions) throws IOException {
+	private static GetReportsResponse getReport(AnalyticsReporting service, String octaneModuleName, String startDate, String endDate, String metrics, String dimensions) throws IOException {
 		// Create the DateRange object.
 		DateRange dateRange = new DateRange();
 		dateRange.setStartDate(startDate);
@@ -67,10 +67,15 @@ public class GoogleAnalyticsHelper {
 //
 //		Dimension pageTitle = new Dimension().setName("ga:pageTitle");
 
-		// Create the Metrics object.
-		Metric sessions = new Metric()
-				.setExpression(metric)
-				.setAlias(metric);
+		List<Metric> listMetrics = new LinkedList<Metric>();
+		String[] arrayMetrics = metrics.split(",");
+		for (int i = 0; i < arrayMetrics.length; i++) {
+			// Create the Metrics object.
+			Metric met = new Metric()
+					.setExpression(arrayMetrics[i])
+					.setAlias(arrayMetrics[i]);
+			listMetrics.add(met);
+		}
 
 		List<Dimension> listDimensions = new LinkedList<Dimension>();
 		String[] array = dimensions.split(",");
@@ -97,7 +102,7 @@ public class GoogleAnalyticsHelper {
 		ReportRequest request = new ReportRequest()
 				.setViewId(VIEW_ID)
 				.setDateRanges(Arrays.asList(dateRange))
-				.setMetrics(Arrays.asList(sessions))
+				.setMetrics(listMetrics)
 				.setDimensions(listDimensions)
 				.setDimensionFilterClauses(listDimensionFilterClause);
 
@@ -152,8 +157,8 @@ public class GoogleAnalyticsHelper {
 					JSONObject jsonMetrics = new JSONObject();
 					DateRangeValues values = metrics.get(j);
 					for (int k = 0; k < values.getValues().size() && k < metricHeaders.size(); k++) {
-						String usage = metricHeaders.get(k).getName() + ": " + values.getValues().get(k);
-						jsonMetrics.put("usage", usage);
+						String value = values.getValues().get(k);
+						jsonMetrics.put(metricHeaders.get(k).getName(), value);
 					}
 					jsonRow.put("Metrics", jsonMetrics);
 				}

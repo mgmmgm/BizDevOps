@@ -19,6 +19,7 @@ export class BdoColumnChartComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+		//noinspection TypeScriptUnresolvedVariable
 		if (!changes.data.firstChange) {
 			this.updateChart();
 		}
@@ -28,10 +29,11 @@ export class BdoColumnChartComponent implements OnChanges {
 		let strStartDate = this.dateFormat.transform(this.data.metadata.startDate, 'D/M/YYYY');
 		let strEndDate = this.dateFormat.transform(this.data.metadata.endDate, 'D/M/YYYY');
 
-		let xNames:any[] = [], xValues:any[] = [];
+		let xNames:any[] = [], xValues:any[] = [], xCustoms:any[] = [];
 		this.data.series.forEach((s:any) => {
-			xNames.push(s[0]);
-			xValues.push(s[1]);
+			xNames.push(s.name);
+			xValues.push(s.y);
+			xCustoms.push(s.custom);
 		});
 
 		this.chart = new Chart({
@@ -57,6 +59,15 @@ export class BdoColumnChartComponent implements OnChanges {
 			},
 			credits: {
 				enabled: false
+			},
+			tooltip: {
+				// pointFormat: '{series.name}: <b>{point.y}</b> <br>Number of users: {series.options.custom[point.index]}'
+				formatter: function() {
+					let seriesName = this.series.name;
+					let y = this.point.y;
+					let custom = this.series.options.custom[this.point.index];
+					return seriesName + ':<b>' + y + '</b> <br>Number of users: ' + custom;
+				}
 			},
 			xAxis: {
 				categories: xNames,
@@ -100,7 +111,8 @@ export class BdoColumnChartComponent implements OnChanges {
 			},
 			series: [{
 				name: 'Page views',
-				data: xValues
+				data: xValues,
+				custom: xCustoms
 			}]
 		});
 	}

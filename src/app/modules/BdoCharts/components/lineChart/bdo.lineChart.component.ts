@@ -19,6 +19,7 @@ export class BdoLineChartComponent implements OnChanges{
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+		//noinspection TypeScriptUnresolvedVariable
 		if (!changes.data.firstChange) {
 			this.updateChart();
 		}
@@ -61,6 +62,9 @@ export class BdoLineChartComponent implements OnChanges{
 			},
 			credits: {
 				enabled: false
+			},
+			tooltip: {
+				// shared: true
 			},
 			xAxis: {
 				type: 'datetime',

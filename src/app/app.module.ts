@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -16,6 +15,7 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {FilterChartDataService} from "./services/bdo.filterChartData.service";
 import {BdoLoadingSpinnerModule} from "./modules/BdoLoadingSpinner/bdo.loadingSpinner.module";
 import {BdoChartsModule} from "./modules/BdoCharts/bdo.charts.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -30,7 +30,7 @@ import {BdoChartsModule} from "./modules/BdoCharts/bdo.charts.module";
     RouterModule,
     BdoLoadingSpinnerModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     ButtonModule,
     CalendarModule,
     DropdownModule,

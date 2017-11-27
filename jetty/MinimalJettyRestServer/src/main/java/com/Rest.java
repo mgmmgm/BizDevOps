@@ -38,7 +38,7 @@ public class Rest {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response getGoogleAnalyticsPageViews(@QueryParam("module-name") String octaneModuleName, @QueryParam("start-date") String startDate, @QueryParam("end-date") String endDate) {
 		GoogleAnalyticsHelper googleAnalyticsHelper = new GoogleAnalyticsHelper();
-		JSONObject report = googleAnalyticsHelper.getReport(octaneModuleName, startDate, endDate, "ga:pageviews", "ga:pageTitle");
+		JSONObject report = googleAnalyticsHelper.getReport(octaneModuleName, startDate, endDate, "ga:pageviews,ga:users", "ga:pageTitle");
 		//return report.toString();
 		return Response.ok().entity(report.toString())
 				.header("Access-Control-Allow-Origin", "*")
@@ -51,7 +51,7 @@ public class Rest {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response getGoogleAnalyticsTrendPageViews(@QueryParam("module-name") String octaneModuleName, @QueryParam("start-date") String startDate, @QueryParam("end-date") String endDate) {
 		GoogleAnalyticsHelper googleAnalyticsHelper = new GoogleAnalyticsHelper();
-		JSONObject report = googleAnalyticsHelper.getReport(octaneModuleName, startDate, endDate, "ga:pageviews", "ga:pageTitle,ga:day");
+		JSONObject report = googleAnalyticsHelper.getReport(octaneModuleName, startDate, endDate, "ga:pageviews,ga:users", "ga:pageTitle,ga:day");
 		//return report.toString();
 		return Response.ok().entity(report.toString())
 				.header("Access-Control-Allow-Origin", "*")
@@ -84,6 +84,9 @@ public class Rest {
 				.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
 				.allow("OPTIONS").build();
 	}
+
+
+
 
 }
 

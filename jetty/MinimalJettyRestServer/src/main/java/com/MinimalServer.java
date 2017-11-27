@@ -34,7 +34,7 @@ public class MinimalServer {
 		System.setProperty("https.proxyPort", proxyPort);
 
 		// Creating the new Server
-		Server server = new Server(9998);
+		Server server = new Server(9999);
 
 		//1.Creating resource for ui
 		ResourceHandler resourceHandler= new ResourceHandler();

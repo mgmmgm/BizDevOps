@@ -23,6 +23,7 @@ export class BdoPieChartComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+		//noinspection TypeScriptUnresolvedVariable
 		if (!changes.data.firstChange) {
 			this.updateChart();
 		}
@@ -53,6 +54,9 @@ export class BdoPieChartComponent implements OnInit, OnChanges {
 				style: {
 					color: '#a8e68c'
 				}
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.y}</b> <br>Number of users: {point.custom}'
 			},
 			plotOptions: {
 				pie: {

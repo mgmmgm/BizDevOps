@@ -8,6 +8,11 @@
 	color: #da6f6f;
 }
 
+.total-users {
+	font-size: 26px;
+	color: #e0a2a2;
+}
+
 .chart-width {
 	width: 620px;
 }

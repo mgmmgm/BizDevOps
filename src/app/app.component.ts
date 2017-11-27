@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   // @ViewChild(BdoPieChartComponent) childPieChartObj:BdoPieChartComponent;
   bdoData:BdoData;
   total:number;
+  totalUsers:number;
   metricLabel:string;
   ngaModules:any[];
   googleAnalyticsMetrics:any[];
@@ -54,7 +55,8 @@ export class AppComponent implements OnInit{
   private getGoogleAnalytics() {
     this.gaService.getGoogleAnalyticsData(this.bdoData)
 			.subscribe((response:any) => {
-          let report = response.json().report;
+          let report = response.report;
+          //noinspection TypeScriptUnresolvedFunction
           let values = Object.values(report);
           let result;
           switch (this.bdoData.googleAnalyticsMetric) {
@@ -73,7 +75,8 @@ export class AppComponent implements OnInit{
           this.dataForChart.metadata = this.bdoData;
           this.dataForChart.series = result[0];
           this.spinner.hide();
-          this.total = result[1];
+          this.total = result[1].pageViews;
+          this.totalUsers = result[1].users;
         },
         (error) => {
           console.log(error);
@@ -85,7 +88,8 @@ export class AppComponent implements OnInit{
     this.bdoData.startDate = this.getFirstDateOfCurrentMonth();
     this.gaService.getGoogleAnalyticsTrend(this.bdoData)
 			.subscribe((response:any) => {
-        let report = response.json().report;
+        let report = response.report;
+        //noinspection TypeScriptUnresolvedFunction
         let values = Object.values(report);
         let result;
         switch (this.bdoData.googleAnalyticsMetric) {
